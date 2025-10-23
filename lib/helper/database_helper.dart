@@ -79,4 +79,34 @@ class DatabaseHelper {
     int changesCount = await _database!.rawDelete('DELETE FROM Student');
     print("Changes Count: $changesCount");
   }
+
+  Future<void> insertDataIntoTableUsingHelperMethod() async {
+    _database ??= await _initDatabase();
+
+    try {
+      _database!.insert(
+        'student',
+        {
+          'id': 1,
+          'name': 'Bilal Khan',
+          'age': 22,
+          'address': 'Lahore, Pakistan' * 1000000000000000000,
+          // 'enrollment_date': '2005-10-10',
+        },
+        nullColumnHack: 'it is optional',
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } on DatabaseException catch (e) {
+      print("Database Exception: $e");
+    } on Exception catch (e) {
+      print("General Exception: $e");
+    }
+  }
+
+  Future<void> updateStudentDataByIdUsingHelperMethod() async {
+    _database ??= await _initDatabase();
+
+    _database!.update('student', {'name': 'Hy'}, where: 'id = 1 AND age > 10');
+    print("Data Updated");
+  }
 }

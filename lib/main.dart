@@ -11,9 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SQFLite Local Database',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: const HomePage(),
     );
@@ -98,6 +100,25 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
+            Text('Insert Values Into Table'),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                DatabaseHelper db = DatabaseHelper.instance;
+                db.insertDataIntoTableUsingHelperMethod();
+              },
+              child: Text("Click Here"),
+            ),
+            SizedBox(height: 20),
+            Text('Update Student Record At ID'),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                DatabaseHelper db = DatabaseHelper.instance;
+                db.updateStudentDataByIdUsingHelperMethod();
+              },
+              child: Text("Click Here"),
+            ),
           ],
         ),
       ),
